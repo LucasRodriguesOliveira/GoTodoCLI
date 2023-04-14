@@ -20,6 +20,8 @@ func AddRun(dbFile ty.FileData, priority *int) func(cmd *cobra.Command, args []s
 			item := mo.Item{Text: arg}
 			item.SetPriority(*priority)
 
+			fmt.Printf("added item [%q] with priority [%s]\n", item.Text, item.PrettyPriority())
+
 			items = append(items, item)
 		}
 

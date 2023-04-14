@@ -3,12 +3,11 @@ package todo
 import (
 	to "GoTodoCLI/model/todo"
 	fm "GoTodoCLI/service/filemanager"
-	t  "GoTodoCLI/service/types"
 	"encoding/json"
 )
 
-func ReadItems(dbFile t.FileData) ([]to.Item, error) {
-	fileManager := fm.NewFileManager(dbFile)
+func ReadItems() ([]to.Item, error) {
+	fileManager := fm.NewFileManager()
 	ok, err := fileManager.Check()
 
 	if err != nil {

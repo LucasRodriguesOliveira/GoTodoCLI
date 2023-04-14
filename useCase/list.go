@@ -3,7 +3,6 @@ package useCase
 import (
 	bp "GoTodoCLI/model/bypri"
 	to "GoTodoCLI/service/todo"
-	ty "GoTodoCLI/service/types"
 	ut "GoTodoCLI/util"
 	tm "GoTodoCLI/model/todo"
 	t  "GoTodoCLI/cmd/types"
@@ -15,9 +14,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func ListRun(dbFile ty.FileData, f *t.FBool) func(cobra *cobra.Command, args []string) {
+func ListRun(f *t.FBool) func(cobra *cobra.Command, args []string) {
 	return func(cobra *cobra.Command, args []string) {
-		items, err := to.ReadItems(dbFile)
+		items, err := to.ReadItems()
 
 		if err != nil {
 			fmt.Println(err)

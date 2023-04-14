@@ -6,6 +6,7 @@ import (
 	"github.com/spf13/viper"
 
 	V "GoTodoCLI/cmd/variables"
+	R "GoTodoCLI/cmd/commands"
 )
 
 func initConfig() {
@@ -14,8 +15,10 @@ func initConfig() {
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err == nil {
-		fmt.Println("Using config file:", viper.ConfigFileUsed())
+		fmt.Printf("Using config file: %q\n\n", viper.ConfigFileUsed())
 	} else {
 		fmt.Println(err)
 	}
+
+	viper.BindPFlag("db", R.RootCmd.PersistentFlags().Lookup("datafile"))
 }

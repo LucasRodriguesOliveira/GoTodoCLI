@@ -3,7 +3,6 @@ package useCase
 import (
 	bp "GoTodoCLI/model/bypri"
 	to "GoTodoCLI/service/todo"
-	ty "GoTodoCLI/service/types"
 	"fmt"
 	"sort"
 	"strconv"
@@ -11,9 +10,9 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func DoneRun(dbFile ty.FileData) func(cobra *cobra.Command, args []string) {
+func DoneRun() func(cobra *cobra.Command, args []string) {
 	return func(cobra *cobra.Command, args []string) {
-		items, err := to.ReadItems(dbFile)
+		items, err := to.ReadItems()
 
 		if err != nil {
 			fmt.Println(err)
@@ -36,7 +35,7 @@ func DoneRun(dbFile ty.FileData) func(cobra *cobra.Command, args []string) {
 			fmt.Printf("%q marked as done\n", items[i-1].Text)
 
 			sort.Sort(bp.ByPri(items))
-			to.SaveItems(items, dbFile)
+			to.SaveItems(items)
 			return
 		}
 

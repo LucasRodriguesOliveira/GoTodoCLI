@@ -5,11 +5,10 @@ import (
 	"encoding/json"
 
 	fm "GoTodoCLI/service/filemanager"
-	t  "GoTodoCLI/service/types"
 )
 
-func SaveItems(items []model.Item, dbFile t.FileData) error {
-	fileManager := fm.NewFileManager(dbFile)
+func SaveItems(items []model.Item) error {
+	fileManager := fm.NewFileManager()
 	b, err := json.Marshal(items)
 
 	if err != nil {

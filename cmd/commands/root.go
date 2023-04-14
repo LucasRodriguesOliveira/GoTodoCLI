@@ -1,9 +1,8 @@
 package commands
 
 import (
-	C "GoTodoCLI/cmd/constants"
-	V "GoTodoCLI/cmd/variables"
 	ut "GoTodoCLI/util"
+	v "GoTodoCLI/cmd/variables"
 
 	"os"
 
@@ -13,44 +12,42 @@ import (
 var RootCmd = &cobra.Command{
 	Use:   "GoTodoCLI",
 	Short: "GoTodoCLI is a todo application",
-	Version: C.Version,
+	Version: "v0.1",
 	Long: `GoTodoCLI will help you to get more done in less time.
 	It's designed to be as simple as possible to help you accomplish your goals`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 		home := ut.SConcat(
-			V.HomeDir,
+			v.HomeDir,
 			string(os.PathSeparator),
 			"gotodocli",
 		)
 
-		if V.DatabaseFile.Path == "" {
-			V.DatabaseFile.Path = home
-		}
-
-		if V.CfgFile == "" {
-			V.CfgFile = home
+		if v.CfgFile == "" {
+			v.CfgFile = home
 		}
 	},
 }
 
 func init() {
 	RootCmd.PersistentFlags().StringVar(
-		&V.DatabaseFile.Path,
+		&v.Db,
 		"datafile",
 		ut.SConcat(
-			V.HomeDir,
+			v.HomeDir,
 			string(os.PathSeparator),
 			"gotodocli",
+			string(os.PathSeparator),
+			"db.json",
 		),
 		"data file to store tasks. e.g.: path\\that\\you\\choose",
 	)
 
 	RootCmd.PersistentFlags().StringVarP(
-		&V.CfgFile,
+		&v.CfgFile,
 		"config",
 		"c",
 		ut.SConcat(
-			V.HomeDir,
+			v.HomeDir,
 			string(os.PathSeparator),
 			"gotodocli",
 		),

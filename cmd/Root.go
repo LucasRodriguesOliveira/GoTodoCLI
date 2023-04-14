@@ -7,14 +7,13 @@ import (
 	"github.com/spf13/cobra"
 
 	R "GoTodoCLI/cmd/commands"
-	C "GoTodoCLI/cmd/constants"
 )
 
 // init function is automatically executed, only once, when the package is loaded
 // useful when need something to be pre-configured
 func init() {
 	cobra.OnInitialize(initConfig)
-	R.RootCmd.SetVersionTemplate(C.Version)
+	R.RootCmd.SetVersionTemplate("v0.1")
 }
 
 func Execute() {

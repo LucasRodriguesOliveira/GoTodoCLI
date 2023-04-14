@@ -1,10 +1,9 @@
 package filemanager
 
 import (
-	"fmt"
 	"os"
 
-	t "GoTodoCLI/service/types"
+	"github.com/spf13/viper"
 )
 
 type fileData struct {
@@ -16,12 +15,10 @@ type FileManager struct {
 	File fileData
 }
 
-func NewFileManager(f t.FileData) *FileManager {
-	fileName, path := f.Get()
-
+func NewFileManager() *FileManager {
 	return &FileManager{
 		File: fileData{
-			Name: fmt.Sprintf("%s%s%s", path, string(os.PathSeparator), fileName),
+			Name: viper.GetString("db"),
 		},
 	}
 }

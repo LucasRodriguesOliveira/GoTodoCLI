@@ -4,7 +4,6 @@ import (
 	"github.com/spf13/cobra"
 
 	"GoTodoCLI/useCase"
-	V "GoTodoCLI/cmd/variables"
 )
 
 var priority int
@@ -13,10 +12,7 @@ var addCmd = &cobra.Command{
 	Use:     "add",
 	Short:   "Add a new Todo item",
 	Long:    "Add will create a new todo item to the list",
-	Run:     useCase.AddRun(
-		&V.DatabaseFile,
-		&priority,
-	),
+	Run:     useCase.AddRun(&priority),
 }
 
 func init() {

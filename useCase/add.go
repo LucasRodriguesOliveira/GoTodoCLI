@@ -3,13 +3,12 @@ package useCase
 import (
 	mo "GoTodoCLI/model/todo"
 	to "GoTodoCLI/service/todo"
-	ty "GoTodoCLI/service/types"
 	"fmt"
 
 	"github.com/spf13/cobra"
 )
 
-func AddRun(dbFile ty.FileData, priority *int) func(cmd *cobra.Command, args []string) {
+func AddRun(priority *int) func(cmd *cobra.Command, args []string) {
 	return func(cmd *cobra.Command, args []string) {
 		if len(args) == 0 {
 			fmt.Println("No item to add")
@@ -25,7 +24,7 @@ func AddRun(dbFile ty.FileData, priority *int) func(cmd *cobra.Command, args []s
 			items = append(items, item)
 		}
 
-		dbItems, err := to.ReadItems(dbFile)
+		dbItems, err := to.ReadItems()
 
 		if err != nil {
 			fmt.Println(err)
@@ -37,6 +36,6 @@ func AddRun(dbFile ty.FileData, priority *int) func(cmd *cobra.Command, args []s
 		}
 
 
-		to.SaveItems(items, dbFile)
+		to.SaveItems(items)
 	}
 }

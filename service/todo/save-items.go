@@ -1,15 +1,15 @@
 package todo
 
 import (
-	"GoTodoCLI/model"
+	model "GoTodoCLI/model/todo"
 	"encoding/json"
 
 	fm "GoTodoCLI/service/filemanager"
+	t  "GoTodoCLI/service/types"
 )
 
-func SaveItems(items []model.Item) error {
-	fileManager := fm.NewFileManager("db.json", ".\\")
-	
+func SaveItems(items []model.Item, dbFile t.FileData) error {
+	fileManager := fm.NewFileManager(dbFile)
 	ok, err := fileManager.Check()
 
 	if err != nil {

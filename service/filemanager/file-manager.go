@@ -3,6 +3,8 @@ package filemanager
 import (
 	"fmt"
 	"os"
+
+	t "GoTodoCLI/service/types"
 )
 
 type fileData struct {
@@ -11,13 +13,15 @@ type fileData struct {
 }
 
 type FileManager struct {
-  File fileData
+	File fileData
 }
 
-func NewFileManager(fileName, path string) *FileManager {
+func NewFileManager(f t.FileData) *FileManager {
+	fileName, path := f.Get()
+
 	return &FileManager{
 		File: fileData{
-			Name: fmt.Sprintf("%s%s", path, fileName),
+			Name: fmt.Sprintf("%s%s%s", path, string(os.PathSeparator), fileName),
 		},
 	}
 }

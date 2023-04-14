@@ -1,17 +1,28 @@
 package useCase
 
 import (
-	"GoTodoCLI/model"
-	serviceTodo "GoTodoCLI/service/todo"
+	mo "GoTodoCLI/model/todo"
+	to "GoTodoCLI/service/todo"
+	ty "GoTodoCLI/service/types"
+	"fmt"
 
 	"github.com/spf13/cobra"
 )
 
-func AddRun(cmd *cobra.Command, args []string) {
-	items := []model.Item{}
-	for _, arg := range args {
-		items = append(items, model.Item{ Text: arg })
-	}
+func AddRun(dbFile ty.FileData, priority *int) func(cmd *cobra.Command, args []string) {
+	return func(cmd *cobra.Command, args []string) {
+		if len(args) == 0 {
+			fmt.Println("No item to add")
+		}
 
-	serviceTodo.SaveItems(items)
+		items := []mo.Item{}
+		for _, arg := range args {
+			item := mo.Item{Text: arg}
+			item.SetPriority(*priority)
+
+			items = append(items, item)
+		}
+
+		to.SaveItems(items, dbFile)
+	}
 }

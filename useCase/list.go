@@ -4,6 +4,7 @@ import (
 	bp "GoTodoCLI/model/bypri"
 	to "GoTodoCLI/service/todo"
 	ty "GoTodoCLI/service/types"
+	ut "GoTodoCLI/util"
 	"fmt"
 	"os"
 	"sort"
@@ -32,7 +33,15 @@ func ListRun(dbFile ty.FileData) func(cobra *cobra.Command, args []string) {
 		defer w.Flush()
 
 		for _, i := range items {
-			fmt.Fprintln(w,i.Label()+"\t"+i.PrettyPriority()+"\t"+i.Text+"\t")
+			fmt.Fprintln(
+				w,
+				ut.SConcat(
+					ut.FTab(i.Label()),
+					ut.FTab(i.PrettyDone()),
+					ut.FTab(i.PrettyPriority()),
+					ut.FTab(i.Text),
+				),
+			)
 		}
 	}
 }

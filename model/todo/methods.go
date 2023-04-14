@@ -37,3 +37,11 @@ func (i *Item) Label() string {
 func (i *Item) Pos() int {
 	return i.position
 }
+
+func (i *Item) PrettyDone() string {
+	if i.Done {
+		return "[DONE]"
+	}
+
+	return ""
+}

@@ -5,6 +5,8 @@ import (
 	to "GoTodoCLI/service/todo"
 	ty "GoTodoCLI/service/types"
 	ut "GoTodoCLI/util"
+	tm "GoTodoCLI/model/todo"
+	t  "GoTodoCLI/cmd/types"
 	"fmt"
 	"os"
 	"sort"
@@ -13,7 +15,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func ListRun(dbFile ty.FileData) func(cobra *cobra.Command, args []string) {
+func ListRun(dbFile ty.FileData, f *t.FBool) func(cobra *cobra.Command, args []string) {
 	return func(cobra *cobra.Command, args []string) {
 		items, err := to.ReadItems(dbFile)
 
@@ -32,16 +34,27 @@ func ListRun(dbFile ty.FileData) func(cobra *cobra.Command, args []string) {
 		w := tabwriter.NewWriter(os.Stdout, 3, 0, 1, ' ', 0)
 		defer w.Flush()
 
+		done, all := (*f)["done"], (*f)["all"]
 		for _, i := range items {
-			fmt.Fprintln(
-				w,
-				ut.SConcat(
-					ut.FTab(i.Label()),
-					ut.FTab(i.PrettyDone()),
-					ut.FTab(i.PrettyPriority()),
-					ut.FTab(i.Text),
-				),
-			)
+			switch {
+			case all:
+				addLine(w, &i)
+			case done == i.Done:
+				addLine(w, &i)
+			}
 		}
 	}
+}
+
+func addLine(w *tabwriter.Writer, i *tm.Item) {
+	fmt.Fprintln(w, line(i))
+}
+
+func line(i *tm.Item) string {
+	return ut.SConcat(
+		ut.FTab(i.Label()),
+		ut.FTab(i.PrettyDone()),
+		ut.FTab(i.PrettyPriority()),
+		ut.FTab(i.Text),
+	)
 }

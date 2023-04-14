@@ -21,6 +21,11 @@ func ListRun(dbFile ty.FileData) func(cobra *cobra.Command, args []string) {
 			panic(1)
 		}
 
+		if len(items) == 0 {
+			fmt.Println("No task's found, use command <add> to add a task or more.")
+			return
+		}
+
 		sort.Sort(bp.ByPri(items))
 
 		w := tabwriter.NewWriter(os.Stdout, 3, 0, 1, ' ', 0)

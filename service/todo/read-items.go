@@ -5,7 +5,6 @@ import (
 	fm "GoTodoCLI/service/filemanager"
 	t  "GoTodoCLI/service/types"
 	"encoding/json"
-	"fmt"
 )
 
 func ReadItems(dbFile t.FileData) ([]to.Item, error) {
@@ -17,7 +16,6 @@ func ReadItems(dbFile t.FileData) ([]to.Item, error) {
 	}
 
   if !ok {
-		fmt.Println("No task's found, use command <add> to add a task or more.")
 		return nil, nil
 	}
 

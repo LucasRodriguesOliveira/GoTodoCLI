@@ -1,7 +1,8 @@
 package todomodel
 
 type Item struct {
-	Text string
+	Text     string
 	Priority int
 	position int
+	Done     bool
 }

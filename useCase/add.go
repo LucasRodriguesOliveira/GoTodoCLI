@@ -23,6 +23,18 @@ func AddRun(dbFile ty.FileData, priority *int) func(cmd *cobra.Command, args []s
 			items = append(items, item)
 		}
 
+		dbItems, err := to.ReadItems(dbFile)
+
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+
+		if len(dbItems) > 0 {
+			items = append(dbItems, items...)
+		}
+
+
 		to.SaveItems(items, dbFile)
 	}
 }

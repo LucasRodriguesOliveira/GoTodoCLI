@@ -1,4 +1,4 @@
-package cmd
+package commands
 
 import (
 	"fmt"
@@ -6,20 +6,21 @@ import (
 
 	"github.com/spf13/cobra"
 	"GoTodoCLI/useCase"
+	V "GoTodoCLI/cmd/variables"
 )
 
 var listCmd = &cobra.Command{
 	Use: "list",
 	Short: fmt.Sprintf(
 		"lists all the items stored in \"%s%s%s\"",
-		DatabaseFile.Path,
+		V.DatabaseFile.Path,
 		string(os.PathSeparator),
-		DatabaseFile.Name,
+		V.DatabaseFile.Name,
 	),
 	Long: "List will look for the storage file and list all the items stored",
-	Run: useCase.ListRun(&DatabaseFile),
+	Run: useCase.ListRun(&V.DatabaseFile),
 }
 
 func init() {
-	rootCmd.AddCommand(listCmd)
+	RootCmd.AddCommand(listCmd)
 }

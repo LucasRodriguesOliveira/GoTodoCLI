@@ -12,7 +12,7 @@ import (
 var RootCmd = &cobra.Command{
 	Use:   "GoTodoCLI",
 	Short: "GoTodoCLI is a todo application",
-	Version: "v0.1",
+	Version: v.Version,
 	Long: `GoTodoCLI will help you to get more done in less time.
 	It's designed to be as simple as possible to help you accomplish your goals`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
